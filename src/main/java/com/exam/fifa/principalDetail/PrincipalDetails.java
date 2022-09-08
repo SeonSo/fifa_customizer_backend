@@ -15,38 +15,35 @@ public class PrincipalDetails {
         this.member = member;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         return authorities;
     }
 
-    @Override
+    public String getUsername() {
+        return member.getUsername();
+    }
+
     public String getUserEmail() {
         return member.getEmail();
     }
 
-    @Override
     public String getPassword() {
         return member.getPassword();
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isEnabled() {
         return true;
     }

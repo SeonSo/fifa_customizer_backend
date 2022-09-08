@@ -14,7 +14,10 @@ public class Member {
     @Column(name = "member_id")
     private Long memberId;
 
-    @Column
+    @Column(unique=true, nullable = false)
+    private String username;
+
+    @Column(unique=true, nullable = false)
     private String email;
 
     @Column

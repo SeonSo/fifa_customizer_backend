@@ -51,17 +51,19 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("memberName").asString();
         } catch (TokenExpiredException e) {
             System.out.println("토큰 만료됨");
+
             ResponseDto responseDto = new ResponseDto();
             responseDto.setCode("TOKEN-0001");
             responseDto.setMessage("token has expired");
             responseDto.setStatus(HttpStatus.UNAUTHORIZED);
+
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(response.getOutputStream(), responseDto);
         }
 
         if (memberName != null) {
 
-            Member memberEntity = memberRepository.findByEmail(email);
+            Member memberEntity = memberRepository.findByUsername(memberName);
 
             PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
 
