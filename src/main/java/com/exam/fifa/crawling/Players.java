@@ -2,6 +2,7 @@ package com.exam.fifa.crawling;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Getter
+@NoArgsConstructor
 public class Players {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
