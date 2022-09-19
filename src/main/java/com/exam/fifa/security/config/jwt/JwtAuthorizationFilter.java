@@ -1,12 +1,12 @@
-package com.exam.fifa.config.jwt;
+package com.exam.fifa.security.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.exam.fifa.config.dto.ResponseDto;
+import com.exam.fifa.security.dto.ResponseDto;
 import com.exam.fifa.member.Member;
 import com.exam.fifa.member.MemberRepository;
-import com.exam.fifa.principalDetail.PrincipalDetails;
+import com.exam.fifa.security.authority.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.rmi.server.ServerCloneException;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private MemberRepository memberRepository;
@@ -45,10 +44,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
         System.out.println("header가 token으로 변환됨");
 
-        String memberName = null;
+        String username = null;
         try {
-            memberName =
-                    JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("memberName").asString();
+            username =
+                    JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("username").asString();
         } catch (TokenExpiredException e) {
             System.out.println("토큰 만료됨");
 
@@ -61,9 +60,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             objectMapper.writeValue(response.getOutputStream(), responseDto);
         }
 
-        if (memberName != null) {
+        if (username != null) {
 
-            Member memberEntity = memberRepository.findByUsername(memberName);
+            Member memberEntity = memberRepository.findByUsername(username);
 
             PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
 

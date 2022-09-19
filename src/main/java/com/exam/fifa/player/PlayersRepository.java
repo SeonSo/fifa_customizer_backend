@@ -1,6 +1,7 @@
-package com.exam.fifa.crawling;
+package com.exam.fifa.player;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlayersRepository extends JpaRepository<Players, Long> {
+
 }

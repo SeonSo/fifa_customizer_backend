@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 	id 'java'
 }
 
@@ -24,6 +25,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'com.auth0', name: 'java-jwt', version: '3.16.0'
+	implementation "com.querydsl:querydsl-jpa:5.0.0"
+	implementation "com.querydsl:querydsl-apt:5.0.0"
 	implementation 'org.jsoup:jsoup:1.15.3'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok'
@@ -39,4 +42,23 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
 }

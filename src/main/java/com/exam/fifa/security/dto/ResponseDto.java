@@ -1,4 +1,4 @@
-package com.exam.fifa.config.dto;
+package com.exam.fifa.security.dto;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

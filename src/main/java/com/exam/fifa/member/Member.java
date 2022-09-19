@@ -1,5 +1,6 @@
 package com.exam.fifa.member;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,13 +24,31 @@ public class Member {
     @Column
     private String password;
 
-    @Column
-    private String nickname;
-
     @Column(columnDefinition = "TEXT")
     private String profileImg;
 
     @Column
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @Builder
+    public Member(Long memberId, String username,
+                  String email, String password,
+                  String profileImg, Role role) {
+        this.memberId = memberId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileImg = profileImg;
+        this.role = Role.MEMBER;
+    }
+
+    public static Member createMember(SignupRequestDto signupRequestDto) {
+        return Member.builder()
+                .email(signupRequestDto.getEmail())
+                .password(signupRequestDto.getPassword())
+                .username(signupRequestDto.getUsername())
+                .profileImg(signupRequestDto.getProfileImg())
+                .build();
+    }
 }

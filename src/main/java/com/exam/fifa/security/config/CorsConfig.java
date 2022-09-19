@@ -1,4 +1,4 @@
-package com.exam.fifa.config;
+package com.exam.fifa.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

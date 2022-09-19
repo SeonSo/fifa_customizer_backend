@@ -1,4 +1,4 @@
-package com.exam.fifa.principalDetail;
+package com.exam.fifa.security.authority;
 
 import com.exam.fifa.member.Member;
 import com.exam.fifa.member.MemberRepository;
@@ -19,6 +19,6 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member memberEntity = memberRepository.findByEmail(email);
-        return (UserDetails) new PrincipalDetails(memberEntity);
+        return new PrincipalDetails(memberEntity);
     }
 }

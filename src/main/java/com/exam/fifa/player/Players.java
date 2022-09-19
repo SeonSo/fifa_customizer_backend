@@ -1,4 +1,4 @@
-package com.exam.fifa.crawling;
+package com.exam.fifa.player;
 
 import lombok.Builder;
 import lombok.Getter;

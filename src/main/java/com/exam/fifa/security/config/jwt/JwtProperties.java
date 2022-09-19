@@ -1,4 +1,4 @@
-package com.exam.fifa.config.jwt;
+package com.exam.fifa.security.config.jwt;
 
 public interface JwtProperties {
     String SECRET = "SeonSo";

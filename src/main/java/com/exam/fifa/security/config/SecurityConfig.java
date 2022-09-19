@@ -1,7 +1,7 @@
-package com.exam.fifa.config;
+package com.exam.fifa.security.config;
 
-import com.exam.fifa.config.jwt.JwtAuthenticationFilter;
-import com.exam.fifa.config.jwt.JwtAuthorizationFilter;
+import com.exam.fifa.security.config.jwt.JwtAuthenticationFilter;
+import com.exam.fifa.security.config.jwt.JwtAuthorizationFilter;
 import com.exam.fifa.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

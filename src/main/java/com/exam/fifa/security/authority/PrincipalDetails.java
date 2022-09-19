@@ -1,4 +1,4 @@
-package com.exam.fifa.principalDetail;
+package com.exam.fifa.security.authority;
 
 import com.exam.fifa.member.Member;
 import lombok.Data;

@@ -1,9 +1,9 @@
-package com.exam.fifa.config.jwt;
+package com.exam.fifa.security.config.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.exam.fifa.member.Member;
-import com.exam.fifa.principalDetail.PrincipalDetails;
+import com.exam.fifa.security.authority.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // => 로그인이 되었다는 뜻
             PrincipalDetails principalDetails= (PrincipalDetails) authentication.getPrincipal();
             System.out.println("=================");
-            System.out.println("로그인 완료됨: " + principalDetails.getMember().getNickname()); // 로그인 정상적으로 되었다는뜻
+            System.out.println("로그인 완료됨: " + principalDetails.getMember().getUsername()); // 로그인 정상적으로 되었다는뜻
             // authentication 객체가 session 영역에 저장됨.
             // 리턴의 이유는 권한 관리를 security가 대신 해주기때문에 편하려고 하는거임
             // 굳이 JWT토큰을 사용하면서 세션을 만들 이유가 없음. 근데 단지 권한 처리때문에 session 넣어준다.
