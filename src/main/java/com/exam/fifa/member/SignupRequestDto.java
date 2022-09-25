@@ -50,7 +50,7 @@ public class SignupRequestDto {
             throw new ApiRequestException("이름은 공백을 포함할수없습니다.");
         }
 
-        if(username == null || username.isEmpty()){
+        if(username.isEmpty()){
             throw new ApiRequestException("이름을 입력해주세요");
         }
 

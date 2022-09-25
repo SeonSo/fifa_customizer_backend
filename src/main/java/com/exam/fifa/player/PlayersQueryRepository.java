@@ -1,12 +1,12 @@
 package com.exam.fifa.player;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import static com.exam.fifa.player.QPlayers.players;
 
@@ -45,13 +45,28 @@ public class PlayersQueryRepository {
                 .fetch();
     }
 
-//    public List<Players> searchPlayerByTag(String name, String team, String position) {
-//        return queryFactory.selectFrom(players)
-//                .distinct()
-//                .where(
-//                        players.playerName.contains(name),
-//                        players.team.eq(team),
-//                        players.position.eq(position))
-//                .fetch();
-//    }
+    public List<Players> searchPlayerByTag(String name, String team, String position) {
+
+        return queryFactory.selectFrom(players)
+                .distinct()
+                .where(
+                        players.playerName.contains(name),
+                        players.team.eq(team),
+                        players.position.eq(position))
+                .fetch();
+    }
+
+    private Predicate[] predicatesBySearch(String name, String team, String position) {
+        Predicate[] predicates;
+        if (name.equals("ALL")) {
+            if (team.equals("ALL") && !position.equals("ALL")) { // 포지션 search
+                predicates = new Predicate[]{
+                        players.position.eq(position)
+                };
+            } else if (!team.equals("ALL") && position.equals("ALL")) { // 팀 search
+                predicates = new Predicate[]{
+                        players.team.eq(team)
+            } else if (team.equals("ALL") && position.equals("ALL")) { //
+        }
+    }
 }

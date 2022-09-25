@@ -12,7 +12,7 @@ public class ApiException {
 
 
     public ApiException(String message, HttpStatus badRequest) {
-        this.message =message;
+        this.message = message;
         this.httpStatus = badRequest;
     }
 
