@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -64,15 +65,20 @@ public class PlayersService {
         return this.playersQueryRepository.findAllByTeam();
     }
 
-    public List<Players> getPlayerTeam(String team) {
-        return this.playersQueryRepository.findPlayersByTeam(team);
+    public List<Players> getPlayersBySearch(String name, String team, String position) {
+        List<Players> playersList = playersQueryRepository.searchPlayerByTag(name, team, position);
+        return playersList;
     }
 
-    public List<Players> getPlayerPosition(String position) {
-        return this.playersQueryRepository.findPlayerByPosition(position);
-    }
-
-    public List<Players> getPlayerName(String playerName) {
-        return this.playersQueryRepository.findPlayerByName(playerName);
-    }
+//    public List<Players> getPlayerTeam(String team) {
+//        return this.playersQueryRepository.findPlayersByTeam(team);
+//    }
+//
+//    public List<Players> getPlayerPosition(String position) {
+//        return this.playersQueryRepository.findPlayerByPosition(position);
+//    }
+//
+//    public List<Players> getPlayerName(String playerName) {
+//        return this.playersQueryRepository.findPlayerByName(playerName);
+//    }
 }

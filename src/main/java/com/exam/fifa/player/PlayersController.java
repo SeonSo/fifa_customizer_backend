@@ -31,18 +31,30 @@ public class PlayersController {
         return this.playersService.getPlayerById(playerId);
     }
 
-    @GetMapping("/search/name/{playerName}")
-    public List<Players> getPlayerName(@PathVariable String playerName) {
-        return this.playersService.getPlayerName(playerName);
+    @GetMapping("/player/search/ALL")
+    public List<Players> getPlayersAll() {
+        return playersService.getPlayersBySearch("ALL", "ALL", "ALL");
     }
 
-    @GetMapping("/search/position/{position}")
-    public List<Players> getPlayerPosition(@PathVariable String position) {
-        return this.playersService.getPlayerPosition(position);
+    @GetMapping("/player/search/{name}/{team}/{position}")
+    public List<Players> getPlayersAll(@PathVariable String name,
+                                       @PathVariable String team,
+                                       @PathVariable String position) {
+        return playersService.getPlayersBySearch(name, team, position);
     }
 
-    @GetMapping("/search/team/{team}")
-    public List<Players> getPlayerTeam(@PathVariable String team) {
-        return this.playersService.getPlayerTeam(team);
-    }
+//    @GetMapping("/search/name/{playerName}")
+//    public List<Players> getPlayerName(@PathVariable String playerName) {
+//        return this.playersService.getPlayerName(playerName);
+//    }
+//
+//    @GetMapping("/search/position/{position}")
+//    public List<Players> getPlayerPosition(@PathVariable String position) {
+//        return this.playersService.getPlayerPosition(position);
+//    }
+//
+//    @GetMapping("/search/team/{team}")
+//    public List<Players> getPlayerTeam(@PathVariable String team) {
+//        return this.playersService.getPlayerTeam(team);
+//    }
 }

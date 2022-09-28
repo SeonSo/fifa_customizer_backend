@@ -25,48 +25,73 @@ public class PlayersQueryRepository {
                 .fetch();
     }
 
-    public List<Players> findPlayersByTeam(String team) {
-        return queryFactory.selectFrom(players)
-                .where(players.team.eq(team))
-                .fetch();
-    }
-
-    public List<Players> findPlayerByName(String name) {
-        return queryFactory.selectFrom(players)
-                .distinct()
-                .where(players.playerName.contains(name))
-                .fetch();
-    }
-
-    public List<Players> findPlayerByPosition(String position) {
-        return queryFactory.selectFrom(players)
-                .distinct()
-                .where(players.position.contains(position))
-                .fetch();
-    }
+//    public List<Players> findPlayersByTeam(String team) {
+//        return queryFactory.selectFrom(players)
+//                .where(players.team.eq(team))
+//                .fetch();
+//    }
+//
+//    public List<Players> findPlayerByName(String name) {
+//        return queryFactory.selectFrom(players)
+//                .distinct()
+//                .where(players.playerName.contains(name))
+//                .fetch();
+//    }
+//
+//    public List<Players> findPlayerByPosition(String position) {
+//        return queryFactory.selectFrom(players)
+//                .distinct()
+//                .where(players.position.contains(position))
+//                .fetch();
+//    }
 
     public List<Players> searchPlayerByTag(String name, String team, String position) {
 
         return queryFactory.selectFrom(players)
                 .distinct()
-                .where(
-                        players.playerName.contains(name),
-                        players.team.eq(team),
-                        players.position.eq(position))
+                .where(predicatesBySearch(name, team, position))
+                .orderBy(players.overall.desc())
                 .fetch();
     }
 
     private Predicate[] predicatesBySearch(String name, String team, String position) {
-        Predicate[] predicates;
+        Predicate[] predicates = new Predicate[2];
         if (name.equals("ALL")) {
-            if (team.equals("ALL") && !position.equals("ALL")) { // 포지션 search
+            if (!team.equals("ALL") && !position.equals("ALL")) { // 포지션, 팀 search
                 predicates = new Predicate[]{
-                        players.position.eq(position)
+                        players.team.eq(team),
+                        players.position.contains(position)
                 };
-            } else if (!team.equals("ALL") && position.equals("ALL")) { // 팀 search
+            } else if (team.equals("ALL") && !position.equals("ALL")) { // 포지션 search
+                predicates = new Predicate[]{
+                        players.position.contains(position)
+                };
+            } else if (!team.equals("ALL")) { // 팀 search
                 predicates = new Predicate[]{
                         players.team.eq(team)
-            } else if (team.equals("ALL") && position.equals("ALL")) { //
+                };
+            }
+        } else {
+            if (!team.equals("ALL") && !position.equals("ALL")) { // 포지션, 팀 search
+                predicates = new Predicate[]{
+                        players.playerName.contains(name),
+                        players.team.eq(team),
+                        players.position.contains(position)
+                };
+            } else if (team.equals("ALL") && !position.equals("ALL")) { // 포지션 search
+                predicates = new Predicate[]{
+                        players.playerName.contains(name),
+                        players.position.contains(position)
+                };
+            } else if (!team.equals("ALL")) { // 팀 search
+                predicates = new Predicate[]{
+                        players.playerName.contains(name),
+                        players.team.eq(team)
+                };
+            }
         }
+        return predicates;
     }
+
+
 }
