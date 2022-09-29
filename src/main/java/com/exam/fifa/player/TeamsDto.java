@@ -9,15 +9,14 @@ import lombok.NoArgsConstructor;
 public class TeamsDto {
     private String team;
     private String teamImg;
-    private Integer playerCount;
+    private Long playerCount;
     private Integer teamOva;
 
     @QueryProjection
-    public TeamsDto(String team, String teamImg) {
+    public TeamsDto(String team, String teamImg, Long playerCount, Integer teamOva) {
         this.team = team;
         this.teamImg = teamImg;
+        this.playerCount = playerCount;
+        this.teamOva = teamOva;
     }
-
-
-
 }

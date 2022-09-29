@@ -70,15 +70,4 @@ public class PlayersService {
         return playersList;
     }
 
-//    public List<Players> getPlayerTeam(String team) {
-//        return this.playersQueryRepository.findPlayersByTeam(team);
-//    }
-//
-//    public List<Players> getPlayerPosition(String position) {
-//        return this.playersQueryRepository.findPlayerByPosition(position);
-//    }
-//
-//    public List<Players> getPlayerName(String playerName) {
-//        return this.playersQueryRepository.findPlayerByName(playerName);
-//    }
 }

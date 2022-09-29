@@ -18,32 +18,32 @@ public class PlayersQueryRepository {
     public List<TeamsDto> findAllByTeam() {
         return queryFactory.select(new QTeamsDto(
                         players.team,
-                        players.teamImg
+                        players.teamImg,
+                        players.playerId.count(),
+                        players.overall.round()
                 ))
                 .from(players)
                 .groupBy(players.team)
                 .fetch();
     }
 
-//    public List<Players> findPlayersByTeam(String team) {
-//        return queryFactory.selectFrom(players)
-//                .where(players.team.eq(team))
-//                .fetch();
-//    }
-//
-//    public List<Players> findPlayerByName(String name) {
-//        return queryFactory.selectFrom(players)
-//                .distinct()
-//                .where(players.playerName.contains(name))
-//                .fetch();
-//    }
-//
-//    public List<Players> findPlayerByPosition(String position) {
-//        return queryFactory.selectFrom(players)
-//                .distinct()
-//                .where(players.position.contains(position))
-//                .fetch();
-//    }
+    public List<Long> getPlayerCount(String team) {
+        return queryFactory
+                .select(players.playerId.count())
+                .from(players)
+                .where(players.team.eq(team))
+                .groupBy(players.team)
+                .fetch();
+    }
+
+    public List<Double> getTeamOva(String team) {
+        return queryFactory
+                .select(players.overall.avg())
+                .from(players)
+                .where(players.team.eq(team))
+                .groupBy(players.team)
+                .fetch();
+    }
 
     public List<Players> searchPlayerByTag(String name, String team, String position) {
 
