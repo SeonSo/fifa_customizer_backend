@@ -20,7 +20,7 @@ public class PlayersQueryRepository {
                         players.team,
                         players.teamImg,
                         players.playerId.count(),
-                        players.overall.round()
+                        players.overall.avg()
                 ))
                 .from(players)
                 .groupBy(players.team)

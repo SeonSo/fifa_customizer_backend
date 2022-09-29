@@ -10,10 +10,10 @@ public class TeamsDto {
     private String team;
     private String teamImg;
     private Long playerCount;
-    private Integer teamOva;
+    private double teamOva;
 
     @QueryProjection
-    public TeamsDto(String team, String teamImg, Long playerCount, Integer teamOva) {
+    public TeamsDto(String team, String teamImg, Long playerCount, double teamOva) {
         this.team = team;
         this.teamImg = teamImg;
         this.playerCount = playerCount;
