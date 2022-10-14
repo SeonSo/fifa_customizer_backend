@@ -42,7 +42,7 @@ public class SignupRequestDto {
             throw new ApiRequestException("비밀번호는 8~20 자리이며 숫자 문자 특수문자를 한번씩 포함해야하며 공백이 들어가면안됩니다.");
         }
 
-        if ( !(password.equals(passwordConfirm))){
+        if (!(password.equals(passwordConfirm))){
             throw new ApiRequestException("비밀번호가 서로같지않습니다.");
         }
 
